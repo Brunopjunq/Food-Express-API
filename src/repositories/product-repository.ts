@@ -21,10 +21,17 @@ async function postProduct(data: CreateProduct) {
     return await db.collection<CreateProduct>("product").insertOne(data);    
 };
 
+async function deleteProduct(id: string) {
+    return await db
+    .collection("product")
+    .deleteOne({_id: new ObjectId(id)})    
+};
+
 const productRepository = {
     getAllprodructs,
     getProductById,
-    postProduct
+    postProduct,
+    deleteProduct
 };
 
 export default productRepository;

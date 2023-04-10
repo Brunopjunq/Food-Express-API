@@ -8,16 +8,21 @@ async function getAllprodructs() {
 
 async function getProductById(id: ObjectId) {
     return productRepository.getProductById(id);  
-}
+};
 
 async function postProduct(data: CreateProduct) {
     return await productRepository.postProduct(data);     
-}
+};
+
+async function deleteProduct(id: string) {
+    return await productRepository.deleteProduct(id);
+};
 
 const productService = {
     getAllprodructs,
     getProductById,
-    postProduct
+    postProduct,
+    deleteProduct,
 };
 
 export default productService;

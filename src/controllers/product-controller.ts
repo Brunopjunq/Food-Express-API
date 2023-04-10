@@ -34,3 +34,14 @@ export async function postProduct(req: Request, res: Response) {
         return res.status(httpStatus.BAD_REQUEST).send(error);
     }
 }
+
+export async function deleteProduct(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+        const deletedProduct = productService.deleteProduct(id);
+        return res.status(httpStatus.OK).send(deletedProduct);
+    } catch (error) {
+        return res.status(httpStatus.BAD_REQUEST).send(error);
+    }
+}
