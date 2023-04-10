@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import { db } from "../config/database.js";
-import { CreateProduct } from "../types/product-type.js";
+import { CreateProduct, UpdateProduct } from "../types/product-type.js";
 
 async function getAllprodructs() {
     const products = await db
@@ -18,7 +18,8 @@ async function getProductById(id: ObjectId) {
 }
 
 async function postProduct(data: CreateProduct) {
-    return await db.collection<CreateProduct>("product").insertOne(data);    
+    return await db
+    .collection<CreateProduct>("product").insertOne(data);    
 };
 
 async function deleteProduct(id: string) {
@@ -27,11 +28,18 @@ async function deleteProduct(id: string) {
     .deleteOne({_id: new ObjectId(id)})    
 };
 
+async function updateProduct(data: UpdateProduct, id: string) {
+    return await db
+    .collection<UpdateProduct>("product")
+    .updateOne({_id: new ObjectId(id)}, {$set: data})
+}
+
 const productRepository = {
     getAllprodructs,
     getProductById,
     postProduct,
-    deleteProduct
+    deleteProduct,
+    updateProduct,
 };
 
 export default productRepository;

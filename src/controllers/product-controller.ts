@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 import productService from "../services/product-service.js";
-import { CreateProduct } from "../types/product-type.js";
+import { CreateProduct, UpdateProduct } from "../types/product-type.js";
 import { ObjectId } from "mongodb";
 
 export async function getAllprodructs(req: Request, res: Response) {
@@ -44,4 +44,15 @@ export async function deleteProduct(req: Request, res: Response) {
     } catch (error) {
         return res.status(httpStatus.BAD_REQUEST).send(error);
     }
+}
+
+export async function updateProduct(req: Request, res: Response) {
+    const product = req.body as UpdateProduct;
+    const { id } = req.params;
+    try {
+        const response = productService.updateProduct(product, id);
+        return res.status(httpStatus.OK).send(response);
+    } catch (error) {
+        return res.status(httpStatus.BAD_REQUEST).send(error);
+    }    
 }

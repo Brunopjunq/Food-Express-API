@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateToken } from "../middlewares/validate-token.js";
-import { deleteProduct, getAllprodructs, getProductById, postProduct } from "../controllers/product-controller.js";
+import { deleteProduct, getAllprodructs, getProductById, postProduct, updateProduct } from "../controllers/product-controller.js";
 import productValidation from "../middlewares/validate-product.js";
 
 const productRouter = Router();
@@ -10,6 +10,7 @@ productRouter
 .get("/", getAllprodructs)
 .get("/:id", getProductById)
 .post("/", productValidation.validateProduct, postProduct)
-.delete("/:id", deleteProduct);
+.delete("/:id", deleteProduct)
+.patch("/:id", updateProduct);
 
 export default productRouter;

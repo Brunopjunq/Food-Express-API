@@ -9,3 +9,10 @@ export type Product = {
 };
 
 export type CreateProduct = Omit<Product, "_id">;
+
+export type UpdateProduct = {
+    categories?: string[];
+    name?: string;
+    qty?: number;
+    price?: number;
+}
