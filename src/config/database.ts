@@ -1,0 +1,17 @@
+import { MongoClient } from "mongodb";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const mongoClient = new MongoClient(process.env.MONGO_URI);
+
+export async function connectDb(): Promise<void> {
+    try {
+        await mongoClient.connect();
+        console.log("MongoDB connected");
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+export const db = mongoClient.db("food-express");
