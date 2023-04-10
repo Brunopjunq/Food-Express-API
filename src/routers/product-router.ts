@@ -11,6 +11,6 @@ productRouter
 .get("/:id", getProductById)
 .post("/", productValidation.validateProduct, postProduct)
 .delete("/:id", deleteProduct)
-.patch("/:id", updateProduct);
+.patch("/:id", productValidation.validateUpdatedProduct, updateProduct);
 
 export default productRouter;
