@@ -21,7 +21,10 @@ export async function getProductById(req: Request, res: Response) {
         const product = await productService.getProductById(productId)
         return res.status(httpStatus.OK).send(product);
     } catch (error) {
-        return res.status(httpStatus.BAD_REQUEST).send(error);
+        if (error.name === "NotFoundError") {
+            return res.status(httpStatus.NOT_FOUND).send(error.message);
+          }
+        return res.sendStatus(httpStatus.BAD_REQUEST);
     }
 }
 
@@ -53,6 +56,9 @@ export async function updateProduct(req: Request, res: Response) {
         const response = productService.updateProduct(product, id);
         return res.status(httpStatus.OK).send(response);
     } catch (error) {
-        return res.status(httpStatus.BAD_REQUEST).send(error);
+        if (error.name === "NotFoundError") {
+            return res.status(httpStatus.NOT_FOUND).send(error.message);
+          }
+        return res.sendStatus(httpStatus.BAD_REQUEST); 
     }    
 }

@@ -10,6 +10,9 @@ export async function signIn(req: Request, res: Response) {
 
         return res.status(httpStatus.OK).send(result);
     } catch (error) {
-        return res.status(httpStatus.UNAUTHORIZED).send("Incorrect email or password");
+        if (error.name === "InvalidCredentialsError") {
+            return res.status(httpStatus.UNAUTHORIZED).send(error.message);
+          }
+        return res.sendStatus(httpStatus.BAD_REQUEST);
     }
 }

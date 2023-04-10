@@ -1,11 +1,11 @@
+import { invalidCredentialsError } from "../errors/invalid-credentials-error.js";
 import authRepository from "../repositories/auth-repository.js";
 import { v4 as uuid } from 'uuid';
 
 async function getUser(email: string) {
     const user = await authRepository.findByEmail(email);
     if(!user) {
-        // throw invalidCredentialsError();
-        throw "Erro";
+        throw invalidCredentialsError();
     }
 
     return user;
